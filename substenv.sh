@@ -18,28 +18,8 @@ scan_input_file() {
   local input="$1"
   local variables=()
 
-  while IFS= read -r line; do
-    
-    # Skip comment lines starting with #
-    if [[ $line =~ ^[[:space:]]*# ]]; then
-      continue
-    fi
-    
-    # Match $variable or ${variable} patterns
-    while [[ $line =~ \$\{?([A-Za-z_][A-Za-z0-9_]*)\}? ]]; do
-      match="${BASH_REMATCH[0]}"
-      var="${BASH_REMATCH[1]}"
-      line=${line/"$match"/""}
-
-      variables+=("$var")
-    done
-  done <  <(printf '%s\n' "$input")
-
-  # Remove duplicates and store unique variables
-  variables=($(echo "${variables[@]}" | tr ' ' '\n' | sort -u | tr '\n' ' '))
-
   # One liner for variable discovery using envsubst with the -v|--variable switch
-  #variables=($(envsubst $input -v | sort -u | tr '\n' ' '))
+  variables=($(envsubst $input -v | sort -u | tr '\n' ' '))
 
   echo "${variables[@]}"
 }
