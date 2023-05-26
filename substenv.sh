@@ -14,7 +14,7 @@
 # Scans the input file and extracts variables
 # by searching for patterns like $variable or ${variable}. 
 # The discovered variables ar stored in an array.
-scan_input_file() {
+discover_variables() {
   local input="$1"
   local variables=()
 
@@ -38,47 +38,38 @@ scan_input_file() {
   # Remove duplicates and store unique variables
   variables=($(echo "${variables[@]}" | tr ' ' '\n' | sort -u | tr '\n' ' '))
 
-  # One liner for variable discovery using envsubst with the -v|--variable switch
-  #variables=($(envsubst $input -v | sort -u | tr '\n' ' '))
-
   echo "${variables[@]}"
 }
 
 ## ____ Prompt the user for values for the discovered variables ____
 # Takes an array of discovered variables and prompts the user to enter values for each variable. 
 # Each entered value is assigned to the corresponding variable
-prompt_user_for_values() {
+prompt_for_values() {
   local variables=("$@")
 
   # Iterate over the discovered variables array and pick each variable name into the $var loop variable
   for var in "${variables[@]}"; do
 
     # Prompt for a value for the current variable picked into $var
-    read -p "Enter the value for $var [${!var}]: " value
+    read -p "Enter the value for $var [${!var}]: " value < /dev/tty
 
     # Assign the user input to the variable picked into $var.
     # Overwrite the existing value only if user input is not empty
-    eval "$var=\"${value:-\$$var}\""
+    eval "export $var=\"${value:-\$$var}\""
 
   done
 }
 
-##### Main script logic
-
-# Check if command-line arguments are provided
-if [[ $# -lt 2 ]]; then
-  echo "Error: Missing argument(s)! any of input and output file name is not provided." >&2
-  exit 1
-fi
+##### MAIN SCRIPT LOGIC
 
 # Store standard input data into $input
 input=$(cat)
 
 # Scanning input file for variables
-discovered_variables=($(scan_input "$input"))
+discovered_variables=($(discover_variables "$input"))
 
 # Prompting the user for values for the discovered variables
-prompt_user_for_values "${discovered_variables[@]}"
+prompt_for_values "${discovered_variables[@]}"
 
 # Generate the output from $input by performing variable substitution using envsubst 
-echo $input | envsubst 
+envsubst <<< "$input" 
