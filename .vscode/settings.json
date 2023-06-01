@@ -1,0 +1,27 @@
+{
+    "editor.tokenColorCustomizations": {
+        "textMateRules": [
+            {
+                "scope": "keyword.control.bats",
+                "settings": {
+                    "foreground": "#9f1fd1",
+                    "fontStyle": "italic"
+                }
+            },
+            {
+                "scope": "support.function.bats",
+                "settings": {
+                    "foreground": "#d41515",
+                    "fontStyle": "italic"
+                }
+            },
+            {
+                "scope": "support.variable.bats",
+                "settings": {
+                    "foreground": "#329432",
+                    "fontStyle": "italic"
+                }
+            }
+        ]
+    }
+}

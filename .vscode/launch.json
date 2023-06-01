@@ -2,19 +2,72 @@
     // Use IntelliSense to learn about possible attributes.
     // Hover to view descriptions of existing attributes.
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-    // "args": ["<", "${workspaceFolder/test/input.txt}"],
-    // "args": ["<<<", "Please deal with $FOO and $BAR and another $FOO"],
+    // "configuration": [{
+    //     "pathBash": "/usr/local/bin/bash",
+    //     "preLaunchTask": "",
+    //     "args": ["-v"],
+    //     "argsString": "<<< 'Please deal with $FOO and $BAR and another $FOO'"
+    // }]
     "version": "0.2.0",
     "configurations": [
         {
             "type": "bashdb",
             "request": "launch",
-            "name": "Bash-Debug (simplest configuration)",
+            "name": "substenv - default",
+            "pathBash": "/usr/local/bin/bash",
             "cwd": "${workspaceFolder}",
             "program": "${file}",
-            "args": ["<<<", "Please deal with $FOO and $BAR and another $FOO"],
+            "env": {
+                "PATH": "/usr/local/opt/gnu-getopt/bin:/usr/local/bin:${env:PATH}"
+            },
+            "args": ["-v"],
+            "argsString": "<<< 'Please deal with $FOO and $BAR and another $FOO'",
             "showDebugOutput": true,
-            "trace": true
+            "trace": false
+        },
+        {
+            "type": "bashdb",
+            "request": "launch",
+            "name": "substenv - variables shell_format",
+            "pathBash": "/usr/local/bin/bash",
+            "cwd": "${workspaceFolder}",
+            "program": "${file}",
+            "env": {
+                "PATH": "/usr/local/opt/gnu-getopt/bin:/usr/local/bin:${env:PATH}"
+            },
+            "args": ["-v", "Please deal with $FOO and $BAR and another $FOO"],
+            "showDebugOutput": true,
+            "trace": false
+        },
+        {
+            "type": "bashdb",
+            "request": "launch",
+            "name": "substenv - Variables input)",
+            "pathBash": "/usr/local/bin/bash",
+            "cwd": "${workspaceFolder}",
+            "program": "${file}",
+            "env": {
+                "PATH": "/usr/local/opt/gnu-getopt/bin:/usr/local/bin:${env:PATH}"
+            },
+            "args": ["-v", "Please deal with $FOO and $BAR and another $FOO"],
+            "argsString": "<<< 'Please deal with $FOO and $BAR and another $FOO'",
+            "showDebugOutput": true,
+            "trace": false
+        },
+        {
+            "type": "bashdb",
+            "request": "launch",
+            "name": "substenv - Interactive)",
+            "pathBash": "/usr/local/bin/bash",
+            "cwd": "${workspaceFolder}",
+            "program": "${file}",
+            "env": {
+                "PATH": "/usr/local/opt/gnu-getopt/bin:/usr/local/bin:${env:PATH}"
+            },
+            "args": ["-i"],
+            "argsString": "<<< 'Please deal with $FOO and $BAR and another $FOO'",
+            "showDebugOutput": true,
+            "trace": false
         }
     ]
 }
