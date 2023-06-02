@@ -217,8 +217,9 @@ fi
 
 # Implement interactive feature if command line is flaged accordingly
 if [[ "$flags" == *-i* ]]; then
+
 # Dicover variables from the standard input content
-  discovered_variables=( $(discover_variables "$input") )
+IFS=" " read -ra discovered_variables <<< "$(discover_variables "$input")"
 
 # Prompt the user for values for the discovered variables
 prompt_for_values "${discovered_variables[@]}"
