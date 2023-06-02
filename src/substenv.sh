@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
+# Copyright (c) 2023 Faisan Euloge TIE
+# 
+# This software is released under the MIT License.
+# https://opensource.org/licenses/MIT
 
 ##
-# This is a wrapper script for envsubst utility which adds extra functionnalities like:
-#        - Interactive variable discorvery and assignment
-# Todo   - Variable exclusion and escaping mechanisms(ingore unset variables, ignore explicit list of variables, ...)
-#        - etc.
+#    A wrapper script around envsubst utility which adds extra functionnalities like:
+#      - Interactive variable discorvery and assignment
+#      - etc.
 ###
-
-
-### UTILITIES ___________________________________________________________________________________________________
 
 # Set script related variables
 script_name=$(basename "$0" .sh)
@@ -80,8 +80,9 @@ help(){
   OPTIONS
 
   Operation mode:
-    -i, --interactive           Prompt for a value for each variable discovered in the input content.
-                                Cannot be used in conjonction with -v or --variable switch
+    -i, --interactive           Prompt for a value for each variable discovered in the standard input, 
+                                prior to performing substitution. Cannot be used in conjonction with 
+                                -v or --variable switch.
     -v, --variables             Output the variables occurring in SHELL-FORMAT or in the input content, if any.
                                 Cannot be used in conjonction with -i or --interactive switch.
 
@@ -96,8 +97,8 @@ help(){
   substituted; otherwise all environment variables references occurring in
   standard input are substituted.
 
-  When --variables is used, standard input is ignored, and the output consists
-  of the environment variables that are referenced in SHELL-FORMAT, one per line.
+  When --variables is used, the output consists of the environment variables that are referenced
+  either in SHELL-FORMAT if provided or in standard input, one per line.
 EOF
   exit 0
 }
@@ -119,8 +120,6 @@ parse_args(){
   # Output the args as parsed by getopt utility
   echo "$parsed_args"
 }
-
-### END UTILITIES_____________________________________________________________________________________________________________
 
 ## 
 # Discovers variables contained in the argument and 

@@ -23,5 +23,6 @@
                 }
             }
         ]
-    }
+    },
+    "markdownlint.ignore": ["LICENSE"]
 }
