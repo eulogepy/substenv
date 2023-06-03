@@ -1,12 +1,10 @@
-
 # substenv
 
-<!-- markdownlint-disable MD033 -->
-<img alt="Github Licence Badge" src="https://img.shields.io/github/license/eulogepy/substenv">  
-<img alt="Github Downloads badge" src="https://img.shields.io/github/downloads/eulogepy/substenv/total">  
-<img alt="Github Issues badge" src="https://img.shields.io/github/issues/eulogepy/substenv">  
-
 A wrapper bash script which add some extra features like interactivity to envsubst utility.  
+
+![Github Licence Badge](https://img.shields.io/github/license/eulogepy/substenv)
+![Github Downloads badge](https://img.shields.io/github/downloads/eulogepy/substenv/total)
+!["Github Issues badge"](https://img.shields.io/github/issues/eulogepy/substenv)
 
 ## Get Started
 
