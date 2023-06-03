@@ -1,12 +1,10 @@
-
 # substenv
 
-<!-- markdownlint-disable MD033 -->
-<img alt="Github Licence Badge" src="https://img.shields.io/github/license/:user/:repo">  
-<img alt="Github Downloads badge" src="https://img.shields.io/github/downloads/:user/:repo/total">  
-<img alt="Github Issues badge" src="https://img.shields.io/github/issues/:user/:repo">  
-
 A wrapper bash script which add some extra features like interactivity to envsubst utility.  
+
+![Github Licence Badge](https://img.shields.io/github/license/eulogepy/substenv)
+![Github Downloads badge](https://img.shields.io/github/downloads/eulogepy/substenv/total)
+!["Github Issues badge"](https://img.shields.io/github/issues/eulogepy/substenv)
 
 ## Get Started
 
@@ -25,7 +23,7 @@ cd path/to/substenv
 ## How it works
 
 In normal operation mode, standard input is copied to standard output,
-with references to environment variables of the form $VARIABLE or ${VARIABLE}
+with references to environment variables of the form `$VARIABLE` or `${VARIABLE}`
 being replaced with the corresponding values.  If a SHELL-FORMAT is given,
 only those environment variables that are referenced in SHELL-FORMAT are
 substituted; otherwise all environment variables references occurring in
