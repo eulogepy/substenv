@@ -8,9 +8,11 @@ remove_from_path() {
     # Store arguments as dependency names in a local array variable
     local dependencies=( "$@" )
 
-    # Get full paths of which and sed utilities so that they can still be used in the long form (i.e /usr/bin/sed )
-    # in the event their respective paths get removed from PATH along with dependencies's
+    ## Get full paths of which and sed utilities so that they can still be used in the long form (i.e /usr/bin/sed )
+    ## in the event their respective paths get removed from PATH along with dependencies's
+    # shellcheck disable=SC2155
     local which_cmd="$(which which)"
+    # shellcheck disable=SC2155
     local sed_cmd="$(which sed)"
     
     # Backup the pristine value of PATH
@@ -23,6 +25,7 @@ remove_from_path() {
         # Get the location of that occurence of the dependency
         dep_basepath="${dep_path%/*}"
         # Build a sed expression which can escape every regex special char in that location
+        # shellcheck disable=SC2016
         sed_patternize_path_expr='s/([.+?^([|\\${}/])/\\\1/g'
 
         # Build a sed expression which can remove every occurrence of that location from PATH
