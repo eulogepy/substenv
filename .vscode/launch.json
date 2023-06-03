@@ -13,6 +13,14 @@
         {
             "type": "bashdb",
             "request": "launch",
+            "name": "Bash-Debug - temptest",
+            "cwd": "${workspaceFolder}",
+            "program": "${file}",
+            "args": []
+        },
+        {
+            "type": "bashdb",
+            "request": "launch",
             "name": "substenv - default",
             "pathBash": "/usr/local/bin/bash",
             "cwd": "${workspaceFolder}",

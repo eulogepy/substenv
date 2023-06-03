@@ -11,7 +11,7 @@ setup_suite() {
   echo "Please deal with \$FOO and \$BAR and again with \$FOO." > "$INPUT_FILE"
 
   # Acknowledgement test suite starting
-  echo -e "\nStating test suite for $SCRIPT_NAME script ..." >&3
+  echo -e "\nStarting test suite for $SCRIPT_NAME script ..." >&3
 }
 
 teardown_suite() {

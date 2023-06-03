@@ -104,6 +104,22 @@ EOF
 }
 
 ##
+#  Check dependencies availability.
+#  Fail the script execution if any dependency is missing
+###
+check_dependencies(){
+  # Stores arguments in a local array variable
+  local dependencies=( "$@" )
+  
+  # Checks each dependency and exit with error if any is missing.
+  for dep in "${dependencies[@]}"; do
+    if ! which "$dep" > /dev/null 2>&1; then
+      error $LINENO "Missing a mandatory dependency: $dep" 1
+    fi
+  done
+}
+
+##
 # Parse command line args using getopt utility
 # Need $@ as argument to get args passed to the script
 ###
@@ -162,6 +178,12 @@ prompt_for_values() {
 
 ##### MAIN SCRIPT LOGIC
 
+# dependencies is an array containing the binary dipendencies of this script
+dependencies=("envsubst" "getopt")
+
+# Check dependencies
+check_dependencies "${dependencies[@]}"
+
 # Capture input from stdin if available
 read -t 0 && input=$(cat)
 
@@ -217,12 +239,11 @@ fi
 
 # Implement interactive feature if command line is flaged accordingly
 if [[ "$flags" == *-i* ]]; then
+  # Dicover variables from the standard input content
+  IFS=" " read -ra discovered_variables <<< "$(discover_variables "$input")"
 
-# Dicover variables from the standard input content
-IFS=" " read -ra discovered_variables <<< "$(discover_variables "$input")"
-
-# Prompt the user for values for the discovered variables
-prompt_for_values "${discovered_variables[@]}"
+  # Prompt the user for values for the discovered variables
+  prompt_for_values "${discovered_variables[@]}"
 fi
 
 # Perform envsubst processing

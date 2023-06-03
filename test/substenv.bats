@@ -1,23 +1,29 @@
 #!/usr/bin/env bats
-##
-# BATS tests for substenv script
-#
-# Tags description
-#    uc            Use case
-#      :success         Successfull execution flow
-#      :failure         Failing execution flow
-#      :d-mod           Default mode, variable substition in input
-#      :v-mod           Variables mode, variables listing
-#      :i-mod           Interactive mode, user is promted for variables' values before performing substitution 
-#      :arg             Arg based operation mode (SHELL_FORMAT)
-#      :stdin           Stdin based operation mode (STDIN)
-#      :file            File based input/output
-#      :short-opt       Using short options flavour like -v
-#      :long-opt        Using long options flavour like -v
-#      :var-excl        Implement variable exclusion feature
-#      :info            Relating to information display
-###
+# Copyright (c) 2023 Faisan Euloge TIE
+# 
+# This software is released under the MIT License.
+# https://opensource.org/licenses/MIT
 
+
+##
+    # BATS tests for substenv script
+    #
+    # Tags description
+    #    uc            Use case
+    #      :success         Successfull execution flow
+    #      :failure         Failing execution flow
+    #      :d-mod           Default mode, variable substition in input
+    #      :v-mod           Variables mode, variables listing
+    #      :i-mod           Interactive mode, user is promted for variables' values before performing substitution 
+    #      :arg             Arg based operation mode (SHELL_FORMAT)
+    #      :stdin           Stdin based operation mode (STDIN)
+    #      :file            File based input/output
+    #      :short-opt       Using short options flavour like -v
+    #      :long-opt        Using long options flavour like -v
+    #      :var-excl        Implement variable exclusion feature
+    #      :info            Relating to information display
+    #      :dependency      Relating to substenv binary
+###
 
 # File level setup
 setup_file() {
@@ -198,5 +204,18 @@ teardown() {
     run substenv.sh
     assert_failure
     assert_output --partial 'Missing input'
+}
+
+# bats test_tags=uc:failure,uc:dependency
+@test 'Should fail and complain against missing mandatory dependency' {
+    # $dependencies array contain substenv's required dependencies
+    local dependencies=( "envsubst" "getopt" )
+
+    # Remove the required dependencies locations from $PATH.
+    PATH=$(remove_from_path "${dependencies[@]}")
+
+    run substenv.sh
+    assert_failure
+    assert_output --partial 'Missing a mandatory dependency'
 }
 

@@ -26,6 +26,7 @@ _common_setup() {
   load 'test_helper/bats-support/load'
   load 'test_helper/bats-assert/load'
   load 'test_helper/bats-file/load'
+  load 'test_helper/custom-helper'
 
   # Expand to a distinct filename for each and every test in the calling test file or suite
   export OUTPUT_FILE="${OUTPUT_DIR:-BATS_FILE_TMPDIR}/output_file_${BATS_SUITE_TEST_NUMBER}.txt"
